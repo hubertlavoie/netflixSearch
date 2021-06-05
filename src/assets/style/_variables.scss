@@ -1,0 +1,30 @@
+$primary: #ba0811;
+$primary-darker: #a1080f;
+$secondary: #eee;
+$gray: #999;
+$gray-semi: #555;
+$gray-dark: #222;
+$white: #fff;
+$transparent-white: rgba(255, 255, 255, 0.92);
+
+$success: #79cd51;
+$info: #7cb3e7;
+$warning: #f6cb3f;
+$danger: #e56060;
+$light: #f8f9fa;
+$dark: #343a40;
+
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1100px;
+$breakpoint-lgr: 1300px;
+$breakpoint-xl: 1700px;
+
+$font-family-sans-serif: "Open Sans", sans-serif, -apple-system,
+  BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace;
+$stripe-size: 100px;
+$duration: 2s;

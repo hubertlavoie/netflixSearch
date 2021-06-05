@@ -1,0 +1,98 @@
+@import "_variables";
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  margin-top: 60px;
+}
+
+#app {
+  font-family: $font-family-sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $gray-dark;
+}
+
+body {
+  font-size: 16px;
+  background: $gray-dark;
+  color: $secondary;
+  margin: 0px;
+  padding: 0px;
+}
+h1 {
+  font-size: 5em;
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+  line-height: 1em;
+  margin-bottom: 20px;
+  color: $primary-darker;
+}
+h2 {
+  font-size: 2.6em;
+  // text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  line-height: 1.2em;
+  color: $gray-dark;
+}
+h3 {
+  font-size: 1.6em;
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+  color: $gray-dark;
+}
+h4 {
+  font-size: 1.3em;
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+  color: $gray-dark;
+}
+a {
+  color: $primary-darker;
+  &:hover {
+    color: $primary;
+  }
+}
+
+.mainSearchInput {
+  font-size: 4rem;
+  background: #333;
+  color: $gray;
+  border: 1px solid $gray-semi;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.searchBtn {
+  font-size: 2.2rem;
+  line-height: 0.9rem;
+  height: auto;
+  padding: 1.8rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+.result-box {
+  margin: 0.5rem;
+  border-radius: 2px;
+}
+.result-box .ant-card-head-title {
+  text-align: left;
+}
+.result-box .ant-card-body {
+  padding: 0.8rem;
+}

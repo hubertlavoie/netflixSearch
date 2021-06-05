@@ -1,5 +1,5 @@
 <template lang="">
-  <div>
+  <div class="netflixSearch">
     <div class="logo">
       <img src="../assets/images/logo.png" alt="" />
     </div>
@@ -9,6 +9,7 @@
         v-model:value="store.state.searchQuery.query"
         placeholder="Search Movie Title"
         @keyup.enter="search"
+        ref="searchInput"
       />
     </div>
 
@@ -44,12 +45,20 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, ref } from "vue";
 import { useStore } from "../store/store";
 const store = useStore();
+
+const searchInput = ref<any>(null);
 
 const search = () => {
   store.dispatch("searchNetflix");
 };
+
+onMounted(() => {
+    searchInput.value.focus();
+  
+});
 
 </script>
 

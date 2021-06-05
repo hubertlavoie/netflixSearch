@@ -63,8 +63,11 @@ h4 {
 }
 a {
   color: $primary-darker;
+  display: inline-block;
+  transition: all ease-in-out 0.2s;
   &:hover {
     color: $primary;
+    transform: scale(0.95);
   }
 }
 

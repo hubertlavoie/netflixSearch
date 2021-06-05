@@ -11,6 +11,22 @@
         @keyup.enter="search"
         ref="searchInput"
       />
+      <br />
+      <a-select
+      v-model:value="store.state.searchQuery.genrelist"
+      show-search
+      placeholder="Select a Genre"
+      style="width: 200px"
+      :default-active-first-option="false"
+      :show-arrow="false"
+      :filter-option="false"
+      :not-found-content="null"
+      @search="handleSearch"
+      mode="multiple"
+    >
+      <a-select-option v-for="genre in store.state.filteredNetflixGenres" :keys="genre.netflixid" :value="genre.netflixid">{{genre.genre}}</a-select-option>
+    </a-select> 
+     
     </div>
 
     <a-button type="primary" @click="search" class="searchBtn">Search</a-button>
@@ -20,20 +36,19 @@
     <section v-if="store.state.searchResult.length > 0" class="searchResults"> 
       
         <a-card class="result-box"  :title="`(${result.year}) ${result.title}`" v-for="result in store.state.searchResult" :key="result.id">
-          <template #extra><a :href='`https://www.netflix.com/watch/${result.nfid}`'  target="_blank">View</a></template>
+          <template #extra><a :href='`https://www.netflix.com/watch/${result.nfid}`' target="_blank"><font-awesome-icon icon="eye" /> Netflix</a></template>
           <div class="cardContent">
             <div class="cardContent-img">
               <img :src="result.img" />
             </div>
             <div class="cardContent-country">
-              <h5><strong><a :href="`https://www.imdb.com/title/${result.imdbid}`" target="_blank">IMDB </a>rating:</strong> {{result.imdbrating}}</h5>
               <template v-for="(country, index) in result.countries"  :key="index">
-                <p v-if="country.length > 3 && country != 'more'"> {{country}} </p>  
+                <span class="countryTag"> {{country}} </span>  
               </template>
-              
-             
+              <p>{{result.synopsis}}</p>
+              <h5><strong><a :href="`https://www.imdb.com/title/${result.imdbid}`" target="_blank"><font-awesome-icon icon="external-link-square-alt" /> IMDB </a> rating: </strong> {{result.imdbrating}}</h5>
             </div>
-         </div>
+          </div>
           
         </a-card>
     
@@ -51,13 +66,19 @@ const store = useStore();
 
 const searchInput = ref<any>(null);
 
+const handleSearch = (val: any) => {
+  store.state.filteredNetflixGenres = store.state.netflixGenres.filter(genre => {
+    return genre.genre.toLowerCase().includes(val.toLowerCase())
+  })
+};
+
 const search = () => {
   store.dispatch("searchNetflix");
 };
 
 onMounted(() => {
+    store.dispatch("getNetflixGenres");
     searchInput.value.focus();
-  
 });
 
 </script>
@@ -79,7 +100,6 @@ h1 {
 }
 .searchInput {
   text-align: center;
-  
   input {
     max-width: 1000px;
   }
@@ -114,11 +134,9 @@ h1 {
     border-radius:5px;
   }
 }
-.cardContent-country{
-  width:100%;
-  p{
-    font-size:0.8rem;
-    padding:4px;
+.countryTag{
+    font-size:0.7rem;
+    padding:0.25rem;
     margin:0;
     display:inline-block;
     margin:3px;
@@ -126,12 +144,21 @@ h1 {
     background:$gray-dark;
     border-radius: 4px;
   }
+.cardContent-country{
+  width:100%;
+  
   h4{
     margin-bottom:0.5rem;
   }
   h5{
     font-size:0.9rem;
-    margin-top:0.5rem;
+    margin:0;
+  }
+  p{
+    line-height:auto;
+    padding:0.5rem;
+    margin-bottom:0;
   }
 }
+
 </style>

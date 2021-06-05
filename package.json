@@ -10,6 +10,9 @@
     "cypress": "cypress run"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/vue-fontawesome": "^3.0.0-4",
     "ant-design-vue": "^2.1.6",
     "vue": "^3.0.5",
     "vuex": "^4.0.1"

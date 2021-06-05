@@ -7,6 +7,7 @@ import {
 export interface StoreState {
   count: number;
   netflixGenres: NetflixGenres[];
+  filteredNetflixGenres: NetflixGenres[];
   videoTypeChoices: string[];
   orderbyChoices: string[];
   searchQuery: NetflixSearchQuery;

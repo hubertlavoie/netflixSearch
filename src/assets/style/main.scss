@@ -83,12 +83,18 @@ main {
 }
 
 .mainSearchInput {
-  font-size: 4rem;
+  font-size: 2rem;
   background: $dark;
   color: $gray;
   border: 1px solid $gray-semi;
   margin-bottom: 1rem;
   border-radius: 5px;
+}
+
+@media (min-width: $breakpoint-md) {
+  .mainSearchInput {
+    font-size: 4rem;
+  }
 }
 
 .searchBtn {

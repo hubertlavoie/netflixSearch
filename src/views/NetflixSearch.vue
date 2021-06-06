@@ -3,53 +3,18 @@
     <div class="logo">
       <img src="../assets/images/logo.png" alt="" />
     </div>
-    <div class="searchInput">
-      <a-input
-        class="mainSearchInput"
-        v-model:value="store.state.searchQuery.query"
-        placeholder="Search Movie Title"
-        @keyup.enter="search"
-        ref="searchInput"
-      />
-      <div class="searchGenre">
-      <a-select
-      v-model:value="store.state.searchQuery.genrelist"
-      show-search
-      placeholder="Select a Genre"
-      class="searchGenreInput"
-      :default-active-first-option="false"
-      :show-arrow="false"
-      :filter-option="false"
-      :not-found-content="null"
-      @search="handleSearch"
-      mode="multiple"
-    >
-      <a-select-option v-for="genre in store.state.filteredNetflixGenres" :keys="genre.netflixid" :value="genre.netflixid">{{genre.genre}}</a-select-option>
-    </a-select> 
-      </div>
-    </div>
 
-    <a-button type="primary" @click="search" class="searchBtn">Search</a-button>
+      <searchByTitle />
+      <searchByGenre />
+
+    <a-button type="primary" @click="store.dispatch('searchNetflix')" class="searchBtn">Search</a-button>
 
     <p v-if="store.state.searchSpinner"><a-spin /></p>
 
     <section v-if="store.state.searchResult.length > 0" class="searchResults"> 
-        <a-card class="result-box"  :title="`(${result.year}) ${result.title}`" v-for="result in store.state.searchResult" :key="result.id">
-          <template #extra><a :href='`https://www.netflix.com/watch/${result.nfid}`' target="_blank"><font-awesome-icon icon="eye" /> Netflix</a></template>
-          <div class="cardContent">
-            <div class="cardContent-img">
-              <font-awesome-icon icon="film" v-if="result.vtype == 'movie'" />
-              <font-awesome-icon icon="tv" v-else />
-              <img :src="result.img" />
-            </div>
-            <div class="cardContent-country">
-                <span class="countryTag" v-for="(country, index) in result.countries"  :key="index"> {{country}} </span>  
-              <p>{{result.synopsis}}</p>
-              <h5><strong><a :href="`https://www.imdb.com/title/${result.imdbid}`" target="_blank"><font-awesome-icon icon="external-link-square-alt" /> IMDB </a> rating: </strong> {{result.imdbrating}}</h5>
-            </div>
-          </div>
-          
-        </a-card>
+      <template v-for="result in store.state.searchResult" :key="result.id"> 
+        <resultCard :result="result" />
+      </template>
     </section>
     
     <p v-if="store.state.noResult">There is no result for you query. Please try again. </p>
@@ -58,26 +23,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
 import { useStore } from "../store/store";
+import resultCard from "../components/netflixSearch/resultCard.vue";
+import searchByTitle from "../components/netflixSearch/searchByTitle.vue";
+import searchByGenre from "../components/netflixSearch/searchByGenre.vue";
 const store = useStore();
-
-const searchInput = ref<any>(null);
-
-const handleSearch = (val: any) => {
-  store.state.filteredNetflixGenres = store.state.netflixGenres.filter(genre => {
-    return genre.genre.toLowerCase().includes(val.toLowerCase())
-  })
-};
-
-const search = () => {
-  store.dispatch("searchNetflix");
-};
-
-onMounted(() => {
-    store.dispatch("getNetflixGenres");
-    searchInput.value.focus();
-});
 
 </script>
 
@@ -106,7 +56,6 @@ h1 {
   margin-top:1rem;
   display: grid;
   grid-template-columns:100%;
-  
 }
 @media (min-width: $breakpoint-md) {
   .searchResults{
@@ -123,58 +72,5 @@ h1 {
   grid-template-columns:25% 25% 25% 25%;
   } 
 }
-.cardContent{
-  display:flex;
-}
-.cardContent-img{
-  position:relative;
-  padding:0.5rem;
-  img{
-    border-radius:5px;
-  }
-  svg{
-    position: absolute;
-    color: #fff;
-    font-size: 2rem;
-    top: 0.9rem;
-    left: 0.9rem;
-    background:$primary;
-    padding: 0.5rem;
-    border-radius: 5px;
-  }
-}
-.countryTag{
-    font-size:0.7rem;
-    padding:0.25rem;
-    margin:0;
-    display:inline-block;
-    margin:3px;
-    color:$white;
-    background:$dark;
-    border-radius: 4px;
-  }
-.cardContent-country{
-  width:100%;
-  
-  h4{
-    margin-bottom:0.5rem;
-  }
-  h5{
-    font-size:0.9rem;
-    margin:0;
-  }
-  p{
-    line-height:auto;
-    padding:0.5rem;
-    margin-bottom:0;
-  }
-}
-.searchGenre{
-  padding:1rem;
-  .searchGenreInput{
-    width:100%;
-  max-width:400px;
-  
-  }
-}
+
 </style>

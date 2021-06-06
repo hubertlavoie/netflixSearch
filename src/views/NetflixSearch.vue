@@ -11,12 +11,12 @@
         @keyup.enter="search"
         ref="searchInput"
       />
-      <br />
+      <div class="searchGenre">
       <a-select
       v-model:value="store.state.searchQuery.genrelist"
       show-search
       placeholder="Select a Genre"
-      style="width: 200px"
+      class="searchGenreInput"
       :default-active-first-option="false"
       :show-arrow="false"
       :filter-option="false"
@@ -26,7 +26,7 @@
     >
       <a-select-option v-for="genre in store.state.filteredNetflixGenres" :keys="genre.netflixid" :value="genre.netflixid">{{genre.genre}}</a-select-option>
     </a-select> 
-     
+      </div>
     </div>
 
     <a-button type="primary" @click="search" class="searchBtn">Search</a-button>
@@ -34,24 +34,22 @@
     <p v-if="store.state.searchSpinner"><a-spin /></p>
 
     <section v-if="store.state.searchResult.length > 0" class="searchResults"> 
-      
         <a-card class="result-box"  :title="`(${result.year}) ${result.title}`" v-for="result in store.state.searchResult" :key="result.id">
           <template #extra><a :href='`https://www.netflix.com/watch/${result.nfid}`' target="_blank"><font-awesome-icon icon="eye" /> Netflix</a></template>
           <div class="cardContent">
             <div class="cardContent-img">
+              <font-awesome-icon icon="film" v-if="result.vtype == 'movie'" />
+              <font-awesome-icon icon="tv" v-else />
               <img :src="result.img" />
             </div>
             <div class="cardContent-country">
-              <template v-for="(country, index) in result.countries"  :key="index">
-                <span class="countryTag"> {{country}} </span>  
-              </template>
+                <span class="countryTag" v-for="(country, index) in result.countries"  :key="index"> {{country}} </span>  
               <p>{{result.synopsis}}</p>
               <h5><strong><a :href="`https://www.imdb.com/title/${result.imdbid}`" target="_blank"><font-awesome-icon icon="external-link-square-alt" /> IMDB </a> rating: </strong> {{result.imdbrating}}</h5>
             </div>
           </div>
           
         </a-card>
-    
     </section>
     
     <p v-if="store.state.noResult">There is no result for you query. Please try again. </p>
@@ -105,7 +103,7 @@ h1 {
   }
 }
 .searchResults{
-  margin-top:4rem;
+  margin-top:1rem;
   display: grid;
   grid-template-columns:100%;
   
@@ -129,9 +127,20 @@ h1 {
   display:flex;
 }
 .cardContent-img{
+  position:relative;
   padding:0.5rem;
   img{
     border-radius:5px;
+  }
+  svg{
+    position: absolute;
+    color: #fff;
+    font-size: 2rem;
+    top: 0.9rem;
+    left: 0.9rem;
+    background:$primary;
+    padding: 0.5rem;
+    border-radius: 5px;
   }
 }
 .countryTag{
@@ -141,7 +150,7 @@ h1 {
     display:inline-block;
     margin:3px;
     color:$white;
-    background:$gray-dark;
+    background:$dark;
     border-radius: 4px;
   }
 .cardContent-country{
@@ -160,5 +169,12 @@ h1 {
     margin-bottom:0;
   }
 }
-
+.searchGenre{
+  padding:1rem;
+  .searchGenreInput{
+    width:100%;
+  max-width:400px;
+  
+  }
+}
 </style>

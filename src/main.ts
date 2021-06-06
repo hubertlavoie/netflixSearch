@@ -7,11 +7,13 @@ import { store, key } from "./store/store";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faEye,
+  faFilm,
+  faTv,
   faExternalLinkSquareAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faEye, faExternalLinkSquareAlt);
+library.add(faEye, faExternalLinkSquareAlt, faFilm, faTv);
 
 const app = createApp(App);
 

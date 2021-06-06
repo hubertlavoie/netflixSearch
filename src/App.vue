@@ -5,11 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import NetflixSearch from "./components/NetflixSearch.vue";
+import NetflixSearch from "./views/NetflixSearch.vue";
 </script>
 
-<style lang="scss">
-main {
-  padding: 2rem;
-}
-</style>
+<style lang="scss"></style>

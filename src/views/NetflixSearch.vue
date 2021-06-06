@@ -28,7 +28,6 @@ import resultCard from "../components/netflixSearch/resultCard.vue";
 import searchByTitle from "../components/netflixSearch/searchByTitle.vue";
 import searchByGenre from "../components/netflixSearch/searchByGenre.vue";
 const store = useStore();
-
 </script>
 
 <style lang="scss">

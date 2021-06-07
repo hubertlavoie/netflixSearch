@@ -44,7 +44,7 @@ describe("Test function returnFilteredArrayFromString", () => {
     );
     expect(filteredArray).toEqual(["Hel", "lo", "Th", "is", "is", "te", "st"]);
   });
-  it("should return array with 1 split and great than length", () => {
+  it("should return array with 1 split and greater than length", () => {
     let filteredArray = helper.returnFilteredArrayFromString(
       "Hello,This,is,a,test",
       ",",

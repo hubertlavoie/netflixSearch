@@ -1,6 +1,5 @@
 <template>
   <div class="searchGenre">
-    <div class="sharethis-inline-share-buttons"></div>
     <a-select
       v-model:value="store.state.searchQuery.genrelist"
       show-search
@@ -29,9 +28,6 @@ const store = useStore();
 
 onMounted(() => {
   store.dispatch("getNetflixGenres");
-  let shareScript = document.createElement('script')
-        shareScript.setAttribute('src', 'https://platform-api.sharethis.com/js/sharethis.js#property=611e8ccfd821a600130aaf53&product=inline-share-buttons')
-        document.head.appendChild(shareScript)
 });
 
 const handleSearch = (val: any) => {
